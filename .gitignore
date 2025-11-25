@@ -1,0 +1,51 @@
+# 构建目录
+build/
+bin/
+
+# Qt Creator 用户文件
+*.user
+*.user.*
+
+# CMake 生成文件
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.cmake
+
+# 编译产物
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.obj
+*.o
+
+# Qt 自动生成
+*_autogen/
+ui_*.h
+moc_*.cpp
+qrc_*.cpp
+
+# 配置文件（保留模板）
+config.json
+!config.example.json
+
+# 日志和数据
+logs/
+data/
+temp/
+
+# IDE
+.vscode/
+.idea/
+*.pro.user
+
+build/
+
+bin/
+logs/
+data/
+temp/
+.cache/
