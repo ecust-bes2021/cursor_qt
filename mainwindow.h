@@ -4,6 +4,10 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QJsonObject>
+#include <QJsonDocument>
+#include <QFile>
+#include <QCoreApplication>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,7 +26,7 @@ private slots:
     void onBtnGetFilePathClicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow *ui;   
 
 private:
     void loadConfig();
