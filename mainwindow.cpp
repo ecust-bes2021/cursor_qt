@@ -7,17 +7,18 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //初始化日志系统
-    const QString logPath =
-        QCoreApplication::applicationDirPath() + "/logs/app.log";
-    Logger::init(logPath, LogLevel::DEBUG, true, true);
+
+    LOG_INFO() << "初始化主窗口";
 
     //加载配置文件
     loadConfig();
-    //slots
+
+    //连接信号和槽
     connect(ui->btn_get_file_path, &QPushButton::clicked, this, &MainWindow::onBtnGetFilePathClicked);
     connect(ui->btn_get_file_path_2, &QPushButton::clicked, this, &MainWindow::onBtnGetFilePathClicked);
     connect(ui->btn_get_file_path_3, &QPushButton::clicked, this, &MainWindow::onBtnGetFilePathClicked);
+
+    LOG_INFO() << "主窗口初始化完成";
 }
 
 MainWindow::~MainWindow()
