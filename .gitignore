@@ -28,10 +28,6 @@ ui_*.h
 moc_*.cpp
 qrc_*.cpp
 
-# 配置文件（保留模板）
-config.json
-!config.example.json
-
 # 日志和数据
 logs/
 data/

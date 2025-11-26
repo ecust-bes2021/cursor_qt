@@ -14,6 +14,44 @@
 - ✅ **绿色软件设计**：所有配置和数据文件位于程序目录
 - ✅ **跨平台支持**：基于 Qt 6，支持 Windows、Linux、macOS
 - ✅ **详细文档**：包含日志系统和 JSON 处理的完整使用说明
+- ✅ **规范的目录结构**：源码、头文件、UI、资源文件分类清晰
+
+---
+
+## 📁 项目目录结构
+
+```
+qt_tool_template/
+├── src/                    # 源代码文件 (.cpp)
+│   ├── main.cpp
+│   ├── mainwindow.cpp
+│   └── logger.cpp
+├── include/                # 头文件 (.h)
+│   ├── mainwindow.h
+│   └── logger.h
+├── ui/                     # UI 文件 (.ui)
+│   └── mainwindow.ui
+├── resources/              # 资源文件
+│   ├── styles/             # 样式表
+│   │   └── style.qss
+│   └── icons/              # 图标（可选）
+├── config/                 # 配置文件模板
+│   └── config.json
+├── docs/                   # 文档
+│   ├── TEMPLATE_USAGE.md
+│   ├── LOGGER_USAGE.md
+│   └── JSON_USAGE.md
+├── CMakeLists.txt          # CMake 构建配置
+├── build/                  # 构建目录（自动生成，不提交到 Git）
+└── bin/                    # 输出目录（自动生成，不提交到 Git）
+    ├── Debug/
+    │   ├── qt_tool_template.exe
+    │   ├── config/         # 运行时配置
+    │   ├── resources/      # 运行时资源
+    │   ├── data/           # 数据文件（程序生成）
+    │   └── logs/           # 日志文件（程序生成）
+    └── Release/
+```
 
 ---
 
@@ -107,13 +145,13 @@ cmake --build build --config Release
 
 #### 方法 A：使用 Qt Designer（推荐）
 
-1. 用 Qt Designer 打开 `mainwindow.ui`
+1. 用 Qt Designer 打开 `ui/mainwindow.ui`
 2. 修改窗口标题、添加/删除控件
 3. 保存后重新编译即可
 
 #### 方法 B：在代码中修改
 
-在 `mainwindow.cpp` 的构造函数中添加：
+在 `src/mainwindow.cpp` 的构造函数中添加：
 
 ```cpp
 MainWindow::MainWindow(QWidget *parent)
@@ -134,7 +172,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 #### 步骤 1：修改 `config.json` 模板
 
-编辑项目根目录的 `config.json`：
+编辑 `config/config.json`：
 
 ```json
 {
@@ -147,27 +185,27 @@ MainWindow::MainWindow(QWidget *parent)
 
 #### 步骤 2：修改 `loadConfig()` 和 `saveConfig()` 函数
 
-在 `mainwindow.cpp` 中修改配置加载和保存逻辑。
+在 `src/mainwindow.cpp` 中修改配置加载和保存逻辑。
 
-详细的 JSON 处理方法请参考：[docs/JSON_USAGE.md](docs/JSON_USAGE.md)
+详细的 JSON 处理方法请参考：[JSON_USAGE.md](JSON_USAGE.md)
 
 ### 3. 添加新的 UI 控件和功能
 
 #### 步骤 1：在 Qt Designer 中添加控件
 
-1. 打开 `mainwindow.ui`
+1. 打开 `ui/mainwindow.ui`
 2. 从左侧工具箱拖拽控件到窗口
 3. 设置控件的 `objectName`（例如：`btn_submit`、`lineEdit_username`）
 4. 保存文件
 
-#### 步骤 2：在 `mainwindow.h` 中声明槽函数
+#### 步骤 2：在 `include/mainwindow.h` 中声明槽函数
 
 ```cpp
 private slots:
     void onBtnSubmitClicked();  // 新增的槽函数
 ```
 
-#### 步骤 3：在 `mainwindow.cpp` 中实现槽函数
+#### 步骤 3：在 `src/mainwindow.cpp` 中实现槽函数
 
 ```cpp
 // 在构造函数中连接信号和槽
@@ -183,7 +221,7 @@ void MainWindow::onBtnSubmitClicked()
 
 ### 4. 使用日志系统
 
-日志系统已经在 `main.cpp` 中初始化，你可以在任何地方使用：
+日志系统已经在 `src/main.cpp` 中初始化，你可以在任何地方使用：
 
 #### 在任意 `.cpp` 文件中使用日志
 
@@ -209,7 +247,7 @@ void someFunction()
 
 #### 修改日志级别
 
-在 `main.cpp` 中修改：
+在 `src/main.cpp` 中修改：
 
 ```cpp
 // 只记录 INFO 及以上级别的日志（忽略 DEBUG）
@@ -219,11 +257,11 @@ Logger::init(logPath, LogLevel::INFO, true, true);
 Logger::init(logPath, LogLevel::DEBUG, true, true);
 ```
 
-详细使用说明请参考：[docs/LOGGER_USAGE.md](docs/LOGGER_USAGE.md)
+详细使用说明请参考：[LOGGER_USAGE.md](LOGGER_USAGE.md)
 
 ### 5. 处理 JSON 数据
 
-模板已经包含了完整的 JSON 处理示例，详细说明请参考：[docs/JSON_USAGE.md](docs/JSON_USAGE.md)
+模板已经包含了完整的 JSON 处理示例，详细说明请参考：[JSON_USAGE.md](JSON_USAGE.md)
 
 #### 快速示例：读取 JSON 文件
 
@@ -284,7 +322,9 @@ void writeJsonFile()
 
 #### 步骤 1：创建新文件
 
-例如创建一个工具类 `utils.h` 和 `utils.cpp`
+例如创建一个工具类：
+- 头文件：`include/utils.h`
+- 源文件：`src/utils.cpp`
 
 #### 步骤 2：在 `CMakeLists.txt` 中添加
 
@@ -292,16 +332,18 @@ void writeJsonFile()
 
 ```cmake
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        logger.cpp
-        logger.h
-        utils.cpp      # 新增
-        utils.h        # 新增
+        src/main.cpp
+        src/mainwindow.cpp
+        src/logger.cpp
+        src/utils.cpp           # 新增源文件
+        include/mainwindow.h
+        include/logger.h
+        include/utils.h         # 新增头文件（Qt MOC 需要）
+        ui/mainwindow.ui
 )
 ```
+
+> ⚠️ **重要**：头文件必须添加到 `PROJECT_SOURCES` 中，否则 Qt 的 MOC（元对象编译器）无法处理 `Q_OBJECT` 宏，会导致链接错误。
 
 #### 步骤 3：重新配置和编译
 
@@ -312,12 +354,12 @@ cmake --build build --config Debug
 
 ### 2. 修改输出目录结构
 
-默认情况下，程序会自动创建以下目录：
-- `config/` - 配置文件
-- `data/` - 数据文件
-- `logs/` - 日志文件
+默认情况下，程序编译后会自动：
+1. 创建以下目录：`config/`、`data/`、`logs/`
+2. 复制 `resources/` 文件夹（包含样式表、图标等）
+3. 复制 `config/` 文件夹（包含配置文件）
 
-如果需要添加新目录，在 `CMakeLists.txt` 中修改：
+如果需要添加新的运行时目录，在 `CMakeLists.txt` 中修改：
 
 ```cmake
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -333,7 +375,17 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 )
 ```
 
-### 3. 修改 Qt 依赖部署选项
+### 3. 添加新的资源文件
+
+只需将文件放入 `resources/` 目录的相应子目录中，编译时会自动复制到输出目录：
+
+- 样式表：放入 `resources/styles/`
+- 图标：放入 `resources/icons/`
+- 其他资源：在 `resources/` 下创建新目录
+
+无需修改 `CMakeLists.txt`，因为整个 `resources/` 文件夹会被复制。
+
+### 4. 修改 Qt 依赖部署选项
 
 在 `CMakeLists.txt` 中找到 `windeployqt` 部分，可以调整部署选项：
 
@@ -358,9 +410,9 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 
 ### 1. 日志系统如何工作？
 
-**问题**：在 `main.cpp` 中初始化日志系统后，为什么在 `mainwindow.cpp` 中可以直接使用日志宏？
+**问题**：在 `src/main.cpp` 中初始化日志系统后，为什么在 `src/mainwindow.cpp` 中可以直接使用日志宏？
 
-**答案**：日志系统使用**单例模式**设计。`Logger::init()` 在 `main.cpp` 中初始化后，日志系统的单例实例就已经创建并配置好了。在任何其他文件中，只需要 `#include "logger.h"`，就可以使用 `LOG_INFO()` 等宏，这些宏会自动调用单例实例。
+**答案**：日志系统使用**单例模式**设计。`Logger::init()` 在 `src/main.cpp` 中初始化后，日志系统的单例实例就已经创建并配置好了。在任何其他文件中，只需要 `#include "logger.h"`，就可以使用 `LOG_INFO()` 等宏，这些宏会自动调用单例实例。
 
 ### 2. 如何修改项目名称？
 
@@ -484,9 +536,9 @@ cmake --build build --config Debug
 
 ## 📚 相关文档
 
-- **[README.md](README.md)** - 项目概述和功能说明
-- **[docs/LOGGER_USAGE.md](docs/LOGGER_USAGE.md)** - 日志系统详细使用说明
-- **[docs/JSON_USAGE.md](docs/JSON_USAGE.md)** - Qt JSON 处理详细教程
+- **[README.md](../README.md)** - 项目概述和功能说明
+- **[LOGGER_USAGE.md](LOGGER_USAGE.md)** - 日志系统详细使用说明
+- **[JSON_USAGE.md](JSON_USAGE.md)** - Qt JSON 处理详细教程
 
 ---
 
@@ -534,8 +586,8 @@ cmake --build build --config Debug
 1. ✅ 按照本文档创建一个测试项目
 2. ✅ 修改 UI 界面，添加自己的控件
 3. ✅ 实现一个简单的功能（如文本处理、文件转换等）
-4. ✅ 阅读 [docs/LOGGER_USAGE.md](docs/LOGGER_USAGE.md) 深入了解日志系统
-5. ✅ 阅读 [docs/JSON_USAGE.md](docs/JSON_USAGE.md) 深入了解 JSON 处理
+4. ✅ 阅读 [LOGGER_USAGE.md](LOGGER_USAGE.md) 深入了解日志系统
+5. ✅ 阅读 [JSON_USAGE.md](JSON_USAGE.md) 深入了解 JSON 处理
 6. ✅ 根据需要添加更多功能模块
 
 ---

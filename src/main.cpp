@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     LOG_DEBUG() << "应用程序路径:" << QCoreApplication::applicationDirPath();
 
     const QString stylePath =
-        QCoreApplication::applicationDirPath() + "/config/style.qss";
+        QCoreApplication::applicationDirPath() + "/resources/styles/style.qss";
     QFile styleFile(stylePath);
     if (styleFile.exists() &&
         styleFile.open(QFile::ReadOnly | QFile::Text))

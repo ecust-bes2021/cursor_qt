@@ -11,6 +11,9 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+# 设置 AUTOUIC 搜索路径（当 UI 文件和源文件不在同一目录时需要）
+set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/ui)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -36,12 +39,12 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        logger.cpp
-        logger.h
+        src/main.cpp
+        src/mainwindow.cpp
+        src/logger.cpp
+        include/mainwindow.h
+        include/logger.h
+        ui/mainwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -66,6 +69,8 @@ else()
         )
     endif()
 endif()
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
@@ -137,12 +142,13 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMENT "Creating application directory structure (config, data, logs)..."
 )
 
-# 可选：复制默认配置文件模板（如果你创建了 config.json）
+# 复制资源文件夹和配置文件夹到输出目录（整个文件夹复制，添加新文件无需修改此处）
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_SOURCE_DIR}/config.json
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>/config/config.json
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_SOURCE_DIR}/style.qss
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>/config/style.qss
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/resources
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/config
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/config
+    COMMENT "Copying resources and config folders..."
 )
