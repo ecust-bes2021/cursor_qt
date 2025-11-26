@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QCoreApplication>
+#include <QFile>
 #include "logger.h"
 
 int main(int argc, char *argv[])
@@ -16,6 +17,27 @@ int main(int argc, char *argv[])
     LOG_INFO() << "========================================";
     LOG_INFO() << "应用程序启动";
     LOG_DEBUG() << "应用程序路径:" << QCoreApplication::applicationDirPath();
+
+    const QString stylePath =
+        QCoreApplication::applicationDirPath() + "/config/style.qss";
+    QFile styleFile(stylePath);
+    if (styleFile.exists() &&
+        styleFile.open(QFile::ReadOnly | QFile::Text))
+    {
+        a.setStyleSheet(QString::fromUtf8(styleFile.readAll()));
+        LOG_INFO() << "加载样式表:" << stylePath;
+    }
+    else
+    {
+        if (!styleFile.exists())
+        {
+            LOG_WARNING() << "未找到样式表:" << stylePath;
+        }
+        else
+        {
+            LOG_WARNING() << "无法打开样式表:" << stylePath;
+        }
+    }
 
     MainWindow w;
     w.show();

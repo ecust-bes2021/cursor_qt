@@ -1,0 +1,449 @@
+QComboBox
+{
+        border-radius: 5px;
+        border: 1px solid rgb(223,223,223);
+        padding-left: 10px;
+        color: black;
+        height:24px;
+}
+QComboBox:disabled
+{
+    border: 1px solid #CDCDCD;
+    background-color: #CDCDCD;
+    color: #B4B4B4;
+}
+QComboBox:hover
+{
+    border: 1px solid #7284b9;
+}
+/*下拉按钮*/
+QComboBox::drop-down
+{
+        subcontrol-origin: padding;
+        subcontrol-position: top right;
+        width: 25px;
+        border-left-width: 1px;
+        border-left-color: rgb(223,223,223);
+        border-left-style: solid;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        background-color: #D0D0D0;
+}
+/* 下拉按钮图片 */
+QComboBox::down-arrow
+{
+
+}
+/*下拉列表*/
+QComboBox QAbstractItemView
+{
+        color: DCDCDC;
+        background-color: #F8F8FF;
+        selection-background-color: #CAE1FF;
+}
+
+QComboBox QAbstractItemView::item {
+    height: 25px;
+}
+QComboBox QAbstractItemView::item:hover {
+    height: 25px;
+    color: #6495ED;
+}
+
+QPushButton {
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 7px;
+    border: 1px solid #40C4C4;
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 rgb(216, 216, 216), stop:1 rgb(196, 196, 196));
+    width: 80px;
+    height: 24px;
+
+}
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 rgb(196, 236, 233), stop:1 rgb(176, 216, 213));
+}
+
+QPushButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #60E4E2, stop:1 #30C2C0);
+}
+
+QPushButton:disabled {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #9babaa, stop:1 #9babaa);
+    color: black;
+}
+
+/* Style for checked QPushButtons to make them visually distinct */
+QPushButton:checked {
+    background-color: #cceEFF; /* Light blue background */
+    border: 1px solid #0078d7; /* Matching border color */
+    color: #000000; /* Ensure text is visible on light background */
+}
+
+QLineEdit, QTextEdit {
+    border: 1px solid #40C4C4;
+    border-radius: 5px;
+    background-color: white;
+    padding: 2px;
+    color: black;
+    selection-background-color: #1b6ad1;
+    selection-color: #F2F2F2;
+    height: 20px;
+}
+
+QLineEdit:hover, QTextEdit:hover {
+    border: 1px solid #60E4E2;
+}
+
+QLineEdit:disabled, QTextEdit:disabled {
+    border: 1px solid #CDCDCD;
+    background-color: #F5F5F5;
+    color: #B4B4B4;
+}
+
+QLineEdit[echoMode="2"] {
+    lineedit-password-character: 9679;
+    lineedit-password-mask-delay: 2000;
+}
+
+QLineEdit:disabled {
+    color: #B4B4B4;
+    background-color: #F5F5F5;
+}
+
+QLineEdit:read-only {
+    background-color: #F5F5F5;
+    color: #000000;
+}
+
+QCheckBox::indicator:hover {
+    background-color: rgb(233,233,233);
+    border: 1px solid #5c5c5c;
+}
+
+QCheckBox::indicator:checked {
+	
+	background-color: #00ff22;
+	border-color: #436EEE;
+}
+
+QCheckBox::indicator {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #40C4C4;
+    border-radius: 4px;
+    background: white;
+}
+
+QCheckBox::indicator:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 rgb(196, 236, 233), stop:1 rgb(176, 216, 213));
+}
+
+QCheckBox::indicator:checked {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #60E4E2, stop:1 #30C2C0);
+    border-color: #436EEE;
+    image: url(config/ui/icons/check.png);
+}
+
+QCheckBox::indicator:disabled {
+    border: 1px solid #CDCDCD;
+    background: #F5F5F5;
+}
+
+
+/* 添加QGroupBox样式 */
+QGroupBox {
+    border: 1px solid rgb(223,223,223);
+    border-radius: 5px;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 5px;
+    color: #070303;
+}
+
+/* 添加QRadioButton样式 */
+QRadioButton::indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 8px;
+    border: 1px solid #40C4C4;
+    background: white;
+}
+
+QRadioButton::indicator:hover {
+    /* border: 1px solid #60E4E2; */
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                            stop:0 rgb(196, 236, 233), stop:1 rgb(176, 216, 213));
+}
+
+QRadioButton::indicator:checked {
+    background: white;
+    border: 1px solid #40C4C4;
+}
+
+/* 添加选中时的内部圆点 */
+QRadioButton::indicator:checked {
+    image: url(images/radio_checked.png);
+    background: qradialgradient(cx:0.5, cy:0.5, radius:0.4, fx:0.5, fy:0.5, 
+                               stop:0 #30C2C0,     /* 改深了中心点颜色 */
+                               stop:0.6 #30C2C0,   /* 保持一致的深色 */
+                               stop:0.7 white);    /* 外圈保持白色 */
+    border: 1px solid #40C4C4;
+}
+
+QRadioButton::indicator:disabled {
+    border: 1px solid #CDCDCD;
+    background: #F5F5F5;
+}
+
+/* 添加QTextEdit样式 */
+QTextEdit {
+    border: 1px solid rgb(223,223,223);
+    border-radius: 5px;
+    background-color: white;
+    selection-background-color: #CAE1FF;
+    selection-color: black;
+    padding: 5px;
+}
+
+QTextEdit:hover {
+    border: 1px solid #7284b9;
+}
+
+QTextEdit:disabled {
+    background-color: #F5F5F5;
+    color: #B4B4B4;
+}
+
+/* 添加QWidget样式 */
+QWidget {
+    background-color: #F8F8FF;
+    color: #000000;  /* 明确设置文字颜色为黑色，确保在任何系统主题下都可见 */
+}
+
+/* 滚动条样式 */
+QScrollBar:vertical {
+    border: none;
+    background-color: #F0F0F0;
+    width: 10px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #C0C0C0;
+    border-radius: 5px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #A8A8A8;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QScrollBar:horizontal {
+    border: none;
+    background-color: #F0F0F0;
+    height: 10px;
+    margin: 0px;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: #C0C0C0;
+    border-radius: 5px;
+    min-width: 20px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background-color: #A8A8A8;
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
+
+
+QDockWidget::title {
+    background: #5C9DF3;  /* 标题栏背景颜色 */
+    color: white;         /* 标题文字颜色 */
+    padding-left: 5px;    /* 左侧内边距 */
+    padding: 3px;
+}
+
+/* 悬浮时的颜色 */
+QDockWidget::title:hover {
+    background: #76A8F6;
+}
+
+
+QDockWidget::close-button:hover, QDockWidget::float-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+QToolTip {
+    background-color: #F8F8FF;
+    color: #333333;
+    border: 1px solid #CCCCCC;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+QLabel#label_trace, 
+QLabel#label_serialport{
+    background-color :  #5C9DF3;
+}
+
+/* QSpinBox和QDoubleSpinBox的基本样式 */
+QSpinBox, QDoubleSpinBox {
+    border: 1px solid #40C4C4;
+    border-radius: 5px;
+    padding: 2px;
+    background-color: white;
+    color: black;
+    selection-background-color: #1b6ad1;
+    height: 24px;
+}
+
+/* 悬停时的边框样式 */
+QSpinBox:hover, QDoubleSpinBox:hover {
+    border: 1px solid #60E4E2;
+}
+
+/* 禁用状态 */
+QSpinBox:disabled, QDoubleSpinBox:disabled {
+    border: 1px solid #CDCDCD;
+    background-color: #F5F5F5;
+    color: #B4B4B4;
+}
+
+/* 上下按钮的通用样式 */
+QSpinBox::up-button, QDoubleSpinBox::up-button,
+QSpinBox::down-button, QDoubleSpinBox::down-button {
+    border: none;
+    background-color: #D0D0D0;
+    width: 16px;
+}
+
+/* 上按钮样式 */
+QSpinBox::up-button, QDoubleSpinBox::up-button {
+    border-top-right-radius: 4px;
+}
+
+/* 下按钮样式 */
+QSpinBox::down-button, QDoubleSpinBox::down-button {
+    border-bottom-right-radius: 4px;
+}
+
+/* 按钮悬停样式 */
+QSpinBox::up-button:hover, QDoubleSpinBox::up-button:hover,
+QSpinBox::down-button:hover, QDoubleSpinBox::down-button:hover {
+    background-color: #A8E0E0;
+}
+
+/* 按钮按下样式 */
+QSpinBox::up-button:pressed, QDoubleSpinBox::up-button:pressed,
+QSpinBox::down-button:pressed, QDoubleSpinBox::down-button:pressed {
+    background-color: #60E4E2;
+}
+
+/* 上箭头和下箭头 */
+QSpinBox::up-arrow, QDoubleSpinBox::up-arrow {
+    image: url(config/ui/icons/spinboxUpArrow.png);
+    width: 14px;
+    height: 14px;
+}
+
+QSpinBox::down-arrow, QDoubleSpinBox::down-arrow {
+    image: url(config/ui/icons/spinboxDownArrow.png);
+    width: 14px;
+    height: 14px;
+}
+
+QSpinBox:focus, QDoubleSpinBox:focus {
+    border: 2px solid #60E4E2;
+    background-color: #F0FFFF;
+}
+QMenu::item:selected {
+    background-color: #76A8F6; /* 一个深灰色背景的例子 */
+    color: black;             /* 白色文字 */
+}
+
+/* 添加QProgressBar样式 */
+QProgressBar
+{
+    min-height :25px;
+	/* border:1px solid #6272a4; */
+	background-color: rgb(98,114,164);
+    border-style: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+	
+    border-radius: 5px;
+    background-color: qlineargradient(spread:pad, x1:0, y1:0.511364, x2:1, y2:0.523, stop:0 rgba(254, 121, 199, 255), stop:1 rgba(170, 85, 255, 255));
+}
+QProgressBar:hover {
+
+	background-color: #654ea3; /* fallback for older Qt versions or if gradients fail */
+    background: qlineargradient(
+    x1:0, y1:0, x2:1, y2:0,
+    stop:0 #eaafc8, /* start color */
+    stop:1 #654ea3  /* end color */
+    );
+}
+
+/* 添加QTableView/QTableWidget边框颜色设置 */
+QTableView, QTableWidget {
+    border: 1px solid #848796;  /* 明确设置边框颜色，防止深色模式下边框消失 */
+    gridline-color: #E0E0E0;    /* 网格线颜色 */
+}
+
+/* QTableView项的悬停效果 - 使用边框高亮而不是背景色，避免滚动时的视觉干扰 */
+QTableView::item:hover {
+    background-color: transparent;  /* 悬停时背景保持透明 */
+    border: 1px solid #60E4E2;      /* 使用青色边框指示悬停状态 */
+}
+
+/* QTableView项的选中效果 */
+QTableView::item:selected {
+    background-color: #CAE1FF;      /* 选中时使用浅蓝色背景 */
+    color: black;                   /* 确保文字清晰可见 */
+}
+
+/* QTableView项同时悬停和选中时的效果 */
+QTableView::item:selected:hover {
+    background-color: #B0D4FF;      /* 选中且悬停时使用稍深的蓝色背景 */
+    border: 1px solid #60E4E2;      /* 保持青色边框 */
+}
+
+/* 添加QListView/QListWidget边框颜色设置 */
+QListView, QListWidget {
+    border: 1px solid #848796;  /* 明确设置边框颜色，防止深色模式下边框消失 */
+}
+
+/* 设置表头样式 - 纯白背景，黑色字体 */
+QHeaderView::section {
+    background-color: #FFFFFF;  /* 表头背景色：纯白色 */
+    border: 0px;
+}
+
+
+
+

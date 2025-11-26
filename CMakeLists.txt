@@ -137,10 +137,12 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMENT "Creating application directory structure (config, data, logs)..."
 )
 
-# 可选：复制默认配置文件模板（如果你创建了 config.example.json）
+# 可选：复制默认配置文件模板（如果你创建了 config.json）
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_SOURCE_DIR}/config.json
         $<TARGET_FILE_DIR:${PROJECT_NAME}>/config/config.json
-    COMMENT "Copying config template..."
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_SOURCE_DIR}/style.qss
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/config/style.qss
 )
