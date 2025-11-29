@@ -5,7 +5,15 @@ cmake_minimum_required(VERSION 3.16)
 # ========================================
 set(PROJECT_NAME "qt_tool_template")
 
-project(${PROJECT_NAME} VERSION 0.1 LANGUAGES CXX)
+project(${PROJECT_NAME} VERSION 0.0.0 LANGUAGES CXX)
+
+# ========================================
+# 安装程序配置（Inno Setup）- 新项目请修改这里
+# ========================================
+set(APP_PUBLISHER "BES")
+set(APP_DESCRIPTION "Qt Tool Template Application")
+set(APP_URL "https://github.com/yourusername/yourproject")
+set(APP_GUID "{{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}")
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -16,6 +24,11 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/ui)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# MSVC 编译器需要此选项才能正确报告 __cplusplus 值
+if(MSVC)
+    add_compile_options(/Zc:__cplusplus)
+endif()
 
 # ========================================
 # 设置输出目录 - 区分 Debug 和 Release
@@ -152,3 +165,56 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         $<TARGET_FILE_DIR:${PROJECT_NAME}>/config
     COMMENT "Copying resources and config folders..."
 )
+
+# ========================================
+# 安装程序构建（Inno Setup）
+# ========================================
+# 使用方法：
+#   1. 编译 Release：cmake --build build --config Release
+#   2. 构建安装程序：cmake --build build --target installer
+# ========================================
+if(WIN32)
+    # 从注册表读取 Inno Setup 安装路径
+    get_filename_component(INNO_SETUP_PATH
+        "[HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Inno Setup 6_is1;InstallLocation]"
+        ABSOLUTE CACHE
+    )
+
+    find_program(ISCC_EXECUTABLE ISCC
+        HINTS
+            "${INNO_SETUP_PATH}"
+        PATHS
+            "C:/Program Files (x86)/Inno Setup 6"
+            "C:/Program Files/Inno Setup 6"
+            "D:/software/innosetup/Inno Setup 6"
+    )
+
+    # 从模板生成 setup.iss（实现单一信息源）
+    if(EXISTS "${CMAKE_SOURCE_DIR}/installer/setup.iss.in")
+        configure_file(
+            "${CMAKE_SOURCE_DIR}/installer/setup.iss.in"
+            "${CMAKE_SOURCE_DIR}/installer/setup.iss"
+            @ONLY
+        )
+        message(STATUS "Generated installer/setup.iss from template")
+    endif()
+
+    if(ISCC_EXECUTABLE)
+        # 添加自定义目标：构建安装程序
+        add_custom_target(installer
+            COMMAND ${ISCC_EXECUTABLE} "${CMAKE_SOURCE_DIR}/installer/setup.iss"
+            WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/installer"
+            COMMENT "Building installer with Inno Setup..."
+            VERBATIM
+        )
+
+        # 确保在构建安装程序之前先构建主程序
+        add_dependencies(installer ${PROJECT_NAME})
+
+        message(STATUS "Inno Setup found: ${ISCC_EXECUTABLE}")
+        message(STATUS "Use 'cmake --build build --target installer' to create installer")
+    else()
+        message(STATUS "Inno Setup not found. Installer target will not be available.")
+        message(STATUS "Download from: https://jrsoftware.org/isinfo.php")
+    endif()
+endif()
